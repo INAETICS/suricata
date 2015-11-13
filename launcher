@@ -47,11 +47,11 @@ usage() {
     echo
     echo "Commands:"
     echo
-    echo "  start [-i interface]    Start the container"
-    echo "  enter                   Get a shell in the running container"
-    echo "  bash                    Start the container with a shell"
-    echo "  pull                    Update the image"
-    echo "  build                   (Re)build the image"
+    echo "  start [-i interface] [-n network ]    Start the container"
+    echo "  enter                                 Get a shell in the running container"
+    echo "  bash                                  Start the container with a shell"
+    echo "  pull                                  Update the image"
+    echo "  build                                 (Re)build the image"
     echo
 }
 

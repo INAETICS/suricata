@@ -17,7 +17,10 @@ Please refer to the Docker documentation at https://docs.docker.com/
 for installation help.  Note that if running in a virtual machine you
 should allocate at least 2GB of memory.
 
- - ./launcher start [-i INTERFACE]
+ - ./launcher start [-i INTERFACE] [-n NETWORK]
+
+If INTERFACE is not defined, the first non-docker interface is used.
+The local IP on the given network is used to monitor hostile traffic (i.e ping and SSH)
 
 The container is completely stateless with all persistent data stored
 in ./data.  

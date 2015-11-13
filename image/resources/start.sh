@@ -2,7 +2,7 @@
 
 CONTAINER_USER=user
 
-ARGS=$(getopt -o "i:" -- "$@")
+ARGS=$(getopt -o "i:n:" -- "$@")
 if [ $? -ne 0 ]; then
     exit 1
 fi
@@ -14,6 +14,10 @@ while true; do
 	    SURICATA_INTERFACE=$2
 	    shift 2
 	    ;;
+        -n)
+            NETWORK=$2
+            shift 2
+            ;;
 	--)
 	    shift
 	    break
@@ -45,6 +49,12 @@ if [ -z "${SURICATA_INTERFACE}" ]; then
 fi
 SURICATA_ARGS="--af-packet=${SURICATA_INTERFACE}"
 export SURICATA_ARGS
+export SURICATA_INTERFACE
+
+if [ -z "${SURICATA_NETWORK}" ]; then
+    SURICATA_NETWORK=172.
+fi
+export SURICATA_NETWORK
 
 if [ ! -e /data ]; then
     echo "WARNING: /data is not a host volume. No data will be persisted."
