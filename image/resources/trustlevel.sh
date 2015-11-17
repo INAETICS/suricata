@@ -1,6 +1,6 @@
 #!/bin/sh
 
-NODE_ID=`ip addr show $SURICATA_INTERFACE | grep $SURICATA_NETWORK | grep "inet" | grep -v "inet6" | awk '{print $2}' | cut -d'/' -f1`
+NODE_ID=`ip addr | grep $SURICATA_NETWORK | grep "inet" | grep -v "inet6" | awk '{print $2}' | cut -d'/' -f1`
 
 
 process_period_trust_inc() {

@@ -15,7 +15,7 @@ while true; do
 	    shift 2
 	    ;;
         -n)
-            NETWORK=$2
+            SURICATA_NETWORK=$2
             shift 2
             ;;
 	--)
