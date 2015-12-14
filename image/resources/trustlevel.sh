@@ -2,16 +2,17 @@
 
 NODE_ID=`ip addr | grep $SURICATA_NETWORK | grep "inet" | grep -v "inet6" | awk '{print $2}' | cut -d'/' -f1`
 PERIOD_TIME=5
-TTL=10
-
+TTL=20
+STARTUP_LEVEL=50
+ 
 process_period_trust_inc() {
     while [ true ]; do
         sleep $PERIOD_TIME;
         PREV_VALUE=`etcdctl get /inaetics/machines/${NODE_ID}/trust_level`
-        PREV_VALUE=$(($PREV_VALUE+1))
         if [ $PREV_VALUE -lt 100 ]; then
-            etcdctl set /inaetics/machines/${NODE_ID}/trust_level $PREV_VALUE --ttl $TTL
+                PREV_VALUE=$(($PREV_VALUE+1))
         fi
+        etcdctl set /inaetics/machines/${NODE_ID}/trust_level $PREV_VALUE --ttl $TTL
     done
 }
 
@@ -43,6 +44,8 @@ process_alert() {
  
 # Main
 
+# Set the security level at startup
+etcdctl set /inaetics/machines/${NODE_ID}/trust_level $STARTUP_LEVEL --ttl $TTL
 (
     process_period_trust_inc 2> /dev/null &
 )
